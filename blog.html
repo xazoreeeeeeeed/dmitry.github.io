@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог | FITNESS - Премиальный фитнес-клуб</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #1a1a1a;
+            --accent: #0077ff;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --success: #28a745;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #e55e00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #000;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #0066cc;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-actions .btn {
+            margin-left: 15px;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Blog Section */
+        .blog {
+            padding-top: 120px;
+            background-color: white;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .blog-content {
+            padding: 30px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .blog-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .blog-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .blog-tag {
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            gap: 10px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+        
+        .page-link.active,
+        .page-link:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Sidebar */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-widget h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-widget h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .recent-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .recent-post-content h5 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-content span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag-cloud a {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #f5f5f5;
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .tag-cloud a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Newsletter */
+        .newsletter-form {
+            margin-top: 20px;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .footer-col p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: 60px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .blog {
+                padding-top: 100px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-actions .btn {
+                display: none;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>FIT<span>NESS</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="trainers.html">Тренеры</a></li>
+                    <li><a href="schedule.html">Расписание</a></li>
+                    <li><a href="pricing.html">Цены</a></li>
+                    <li><a href="blog.html" class="active">Блог</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blog Section -->
+    <section class="blog">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наш блог</h2>
+                <p>Полезные статьи, советы тренеров и последние новости из мира фитнеса и здорового образа жизни</p>
+            </div>
+            
+            <div class="blog-container">
+                <div class="blog-main">
+                    <div class="blog-grid">
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 15 мая 2023</span>
+                                    <span><i class="far fa-eye"></i> 1.2K</span>
+                                    <span><i class="far fa-comment"></i> 24</span>
+                                </div>
+                                <h3>Как правильно составить программу тренировок для начинающих</h3>
+                                <p>В этой статье мы расскажем, с чего начать новичку в тренажерном зале, как подобрать оптимальную нагрузку и какие ошибки чаще всего допускают начинающие спортсмены.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">Тренировки</span>
+                                    <span class="blog-tag">Для начинающих</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 8 мая 2023</span>
+                                    <span><i class="far fa-eye"></i> 2.4K</span>
+                                    <span><i class="far fa-comment"></i> 42</span>
+                                </div>
+                                <h3>10 лучших упражнений для укрепления мышц кора</h3>
+                                <p>Сильные мышцы кора - основа для большинства упражнений и здоровой осанки. Узнайте, какие упражнения наиболее эффективны для развития этой группы мышц.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">Упражнения</span>
+                                    <span class="blog-tag">Кор</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 1 мая 2023</span>
+                                    <span><i class="far fa-eye"></i> 3.1K</span>
+                                    <span><i class="far fa-comment"></i> 56</span>
+                                </div>
+                                <h3>Питание до и после тренировки: что есть для максимального эффекта</h3>
+                                <p>Правильное питание - 70% успеха в фитнесе. Узнайте, какие продукты помогут вам получить максимум от тренировок и ускорить восстановление.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">Питание</span>
+                                    <span class="blog-tag">Спорт</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 22 апреля 2023</span>
+                                    <span><i class="far fa-eye"></i> 1.8K</span>
+                                    <span><i class="far fa-comment"></i> 31</span>
+                                </div>
+                                <h3>Йога для начинающих: с чего начать практику</h3>
+                                <p>Йога - это не только физические упражнения, но и путь к гармонии тела и разума. В этой статье мы расскажем, как правильно начать заниматься йогой.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">Йога</span>
+                                    <span class="blog-tag">Здоровье</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 15 апреля 2023</span>
+                                    <span><i class="far fa-eye"></i> 2.7K</span>
+                                    <span><i class="far fa-comment"></i> 48</span>
+                                </div>
+                                <h3>Как мотивировать себя на регулярные тренировки</h3>
+                                <p>Узнайте проверенные способы сохранить мотивацию и сделать тренировки неотъемлемой частью вашей жизни, даже когда совсем не хочется идти в зал.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">Мотивация</span>
+                                    <span class="blog-tag">Психология</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 5 апреля 2023</span>
+                                    <span><i class="far fa-eye"></i> 1.5K</span>
+                                    <span><i class="far fa-comment"></i> 22</span>
+                                </div>
+                                <h3>HIIT тренировки: преимущества и противопоказания</h3>
+                                <p>Высокоинтенсивные интервальные тренировки - один из самых эффективных способов сжигания жира. Но подходят ли они всем? Разбираемся в статье.</p>
+                                <div class="blog-tags">
+                                    <span class="blog-tag">HIIT</span>
+                                    <span class="blog-tag">Кардио</span>
+                                </div>
+                                <a href="blog-single.html" class="btn btn-accent">Читать далее</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pagination">
+                        <a href="#" class="page-link active">1</a>
+                        <a href="#" class="page-link">2</a>
+                        <a href="#" class="page-link">3</a>
+                        <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="sidebar-widget">
+                        <h4>Поиск</h4>
+                        <form>
+                            <input type="text" placeholder="Поиск по блогу...">
+                            <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 10px;">Найти</button>
+                        </form>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>Категории</h4>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 10px;"><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0; border-bottom: 1px solid #eee;">Тренировки <span style="float: right; color: var(--gray);">(24)</span></a></li>
+                            <li style="margin-bottom: 10px;"><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0; border-bottom: 1px solid #eee;">Питание <span style="float: right; color: var(--gray);">(18)</span></a></li>
+                            <li style="margin-bottom: 10px;"><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0; border-bottom: 1px solid #eee;">Здоровье <span style="float: right; color: var(--gray);">(15)</span></a></li>
+                            <li style="margin-bottom: 10px;"><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0; border-bottom: 1px solid #eee;">Йога <span style="float: right; color: var(--gray);">(12)</span></a></li>
+                            <li style="margin-bottom: 10px;"><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0; border-bottom: 1px solid #eee;">Кардио <span style="float: right; color: var(--gray);">(9)</span></a></li>
+                            <li><a href="#" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: block; padding: 8px 0;">Новости <span style="float: right; color: var(--gray);">(7)</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>Популярные статьи</h4>
+                        <div class="recent-post">
+                            <div class="recent-post-img" style="background-image: url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80');"></div>
+                            <div class="recent-post-content">
+                                <h5>Йога для начинающих</h5>
+                                <span>15 апреля 2023</span>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <div class="recent-post-img" style="background-image: url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80');"></div>
+                            <div class="recent-post-content">
+                                <h5>Мотивация для тренировок</h5>
+                                <span>10 апреля 2023</span>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <div class="recent-post-img" style="background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80');"></div>
+                            <div class="recent-post-content">
+                                <h5>Питание до и после тренировки</h5>
+                                <span>5 апреля 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>Теги</h4>
+                        <div class="tag-cloud">
+                            <a href="#">Тренировки</a>
+                            <a href="#">Питание</a>
+                            <a href="#">Йога</a>
+                            <a href="#">Кардио</a>
+                            <a href="#">Силовые</a>
+                            <a href="#">Здоровье</a>
+                            <a href="#">Мотивация</a>
+                            <a href="#">Советы</a>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>Подписаться</h4>
+                        <p>Получайте новые статьи на почту</p>
+                        <form class="newsletter-form">
+                            <input type="text" placeholder="Ваше имя">
+                            <input type="email" placeholder="Ваш email">
+                            <button type="submit" class="btn">Подписаться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>О клубе</h4>
+                    <p>Fitness - это современный фитнес-клуб с профессиональным оборудованием и тренерами международного класса.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Расписание</h4>
+                    <ul>
+                        <li><a href="#">Групповые занятия</a></li>
+                        <li><a href="#">Тренажерный зал</a></li>
+                        <li><a href="#">Бассейн</a></li>
+                        <li><a href="#">Йога и пилатес</a></li>
+                        <li><a href="#">Боевые искусства</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Спортивная, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@fitnessclub.ru</li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Подписка</h4>
+                    <p>Подпишитесь на рассылку, чтобы получать новости о специальных предложениях и акциях клуба.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш email">
+                        </div>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Фитнес-клуб "Fitness". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const nav = document.querySelector('nav ul');
+        
+        mobileToggle.addEventListener('click', function() {
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>
