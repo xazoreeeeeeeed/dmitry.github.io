@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание | Fitness - Премиальный фитнес-клуб</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #1a1a1a;
+            --accent: #0077ff;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --success: #28a745;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #e55e00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #000;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #0066cc;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-actions .btn {
+            margin-left: 15px;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Schedule Hero Section */
+        .schedule-hero {
+            height: 50vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-top: 70px;
+        }
+        
+        .schedule-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .schedule-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .schedule-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Schedule Navigation */
+        .schedule-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .schedule-nav-btn {
+            padding: 10px 25px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .schedule-nav-btn.active,
+        .schedule-nav-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Schedule Filter */
+        .schedule-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .filter-label {
+            font-weight: 500;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+        
+        /* Schedule Table */
+        .schedule-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .schedule-table th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .schedule-table td {
+            padding: 15px;
+            border: 1px solid #eee;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .schedule-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .schedule-class {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .schedule-class:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .class-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+        
+        .class-trainer {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .class-time {
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .class-action {
+            margin-top: 10px;
+        }
+        
+        .class-action .btn {
+            padding: 8px 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* Schedule Legend */
+        .schedule-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        /* Schedule Mobile */
+        .schedule-mobile {
+            display: none;
+        }
+        
+        .mobile-day {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mobile-day-header {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .mobile-day-header i {
+            transition: var(--transition);
+        }
+        
+        .mobile-day-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .mobile-day.active .mobile-day-content {
+            max-height: 2000px;
+            padding: 15px;
+        }
+        
+        .mobile-day.active .mobile-day-header i {
+            transform: rotate(180deg);
+        }
+        
+        /* Personal Training Section */
+        .personal-training {
+            background: linear-gradient(to right, var(--secondary), #333);
+            color: white;
+            text-align: center;
+        }
+        
+        .personal-training .section-title h2,
+        .personal-training .section-title p {
+            color: white;
+        }
+        
+        .personal-training .section-title::after {
+            background: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .footer-col p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .schedule-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .schedule-table {
+                display: none;
+            }
+            
+            .schedule-mobile {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .schedule-hero {
+                min-height: 400px;
+                margin-top: 60px;
+            }
+            
+            .schedule-hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .filter-select {
+                flex-grow: 1;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-actions .btn {
+                display: none;
+            }
+            
+            .schedule-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .schedule-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .schedule-nav-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>FIT<span>NESS</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="trainers.html">Тренеры</a></li>
+                    <li><a href="schedule.html" class="active">Расписание</a></li>
+                    <li><a href="pricing.html">Цены</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Schedule Hero Section -->
+    <section class="schedule-hero">
+        <div class="container schedule-hero-content">
+            <h1>Расписание занятий</h1>
+            <p>Выберите удобное время для тренировки и запишитесь онлайн. Все групповые занятия включены в абонемент.</p>
+            <a href="#schedule" class="btn">Посмотреть расписание</a>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule" id="schedule">
+        <div class="container">
+            <div class="section-title">
+                <h2>График тренировок</h2>
+                <p>Актуальное расписание групповых занятий и работы зон клуба</p>
+            </div>
+            
+            <div class="schedule-nav">
+                <button class="schedule-nav-btn active">Эта неделя</button>
+                <button class="schedule-nav-btn">Следующая неделя</button>
+                <button class="schedule-nav-btn">Тренажерный зал</button>
+                <button class="schedule-nav-btn">Бассейн</button>
+                <button class="schedule-nav-btn">SPA</button>
+            </div>
+            
+            <div class="schedule-filter">
+                <div class="filter-group">
+                    <span class="filter-label">Направление:</span>
+                    <select class="filter-select">
+                        <option value="all">Все направления</option>
+                        <option value="yoga">Йога</option>
+                        <option value="pilates">Пилатес</option>
+                        <option value="hiit">HIIT</option>
+                        <option value="functional">Функциональный тренинг</option>
+                        <option value="swimming">Плавание</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Тренер:</span>
+                    <select class="filter-select">
+                        <option value="all">Все тренеры</option>
+                        <option value="1">Дмитрий Смирнов</option>
+                        <option value="2">Мария Петрова</option>
+                        <option value="3">Алексей Иванов</option>
+                        <option value="4">Анна Кузнецова</option>
+                        <option value="5">Сергей Волков</option>
+                        <option value="6">Елена Соколова</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Desktop Schedule Table -->
+            <div class="schedule-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Понедельник</th>
+                            <th>Вторник</th>
+                            <th>Среда</th>
+                            <th>Четверг</th>
+                            <th>Пятница</th>
+                            <th>Суббота</th>
+                            <th>Воскресенье</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>07:00</td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                                    <div class="class-name">Утренняя йога</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">07:00 - 08:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                                    <div class="class-name">Утренняя йога</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">07:00 - 08:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                                    <div class="class-name">Утренняя йога</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">07:00 - 08:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #0077ff;">
+                                    <div class="class-name">Аквааэробика</div>
+                                    <div class="class-trainer">Анна Кузнецова</div>
+                                    <div class="class-time">07:00 - 08:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>09:00</td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                                    <div class="class-name">Пилатес</div>
+                                    <div class="class-trainer">Елена Соколова</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #dc3545;">
+                                    <div class="class-name">Бокс</div>
+                                    <div class="class-trainer">Сергей Волков</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                                    <div class="class-name">Пилатес</div>
+                                    <div class="class-trainer">Елена Соколова</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #dc3545;">
+                                    <div class="class-name">Бокс</div>
+                                    <div class="class-trainer">Сергей Волков</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                                    <div class="class-name">Пилатес</div>
+                                    <div class="class-trainer">Елена Соколова</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #ffc107;">
+                                    <div class="class-name">Детский бассейн</div>
+                                    <div class="class-trainer">Анна Кузнецова</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #ffc107;">
+                                    <div class="class-name">Детский бассейн</div>
+                                    <div class="class-trainer">Анна Кузнецова</div>
+                                    <div class="class-time">09:00 - 10:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>12:00</td>
+                            <td></td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #17a2b8;">
+                                    <div class="class-name">Стретчинг</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">12:00 - 13:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #17a2b8;">
+                                    <div class="class-name">Стретчинг</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">12:00 - 13:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #6f42c1;">
+                                    <div class="class-name">Сауна + бассейн</div>
+                                    <div class="class-trainer">-</div>
+                                    <div class="class-time">12:00 - 14:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #6f42c1;">
+                                    <div class="class-name">Сауна + бассейн</div>
+                                    <div class="class-trainer">-</div>
+                                    <div class="class-time">12:00 - 14:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>18:00</td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                                    <div class="class-name">CrossFit</div>
+                                    <div class="class-trainer">Дмитрий Смирнов</div>
+                                    <div class="class-time">18:00 - 19:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #e83e8c;">
+                                    <div class="class-name">Фитнес-бикини</div>
+                                    <div class="class-trainer">Анна Кузнецова</div>
+                                    <div class="class-time">18:00 - 19:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                                    <div class="class-name">CrossFit</div>
+                                    <div class="class-trainer">Дмитрий Смирнов</div>
+                                    <div class="class-time">18:00 - 19:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #e83e8c;">
+                                    <div class="class-name">Фитнес-бикини</div>
+                                    <div class="class-trainer">Анна Кузнецова</div>
+                                    <div class="class-time">18:00 - 19:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                                    <div class="class-name">CrossFit</div>
+                                    <div class="class-trainer">Дмитрий Смирнов</div>
+                                    <div class="class-time">18:00 - 19:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>20:00</td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                                    <div class="class-name">Йога для сна</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">20:00 - 21:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #6610f2;">
+                                    <div class="class-name">MMA</div>
+                                    <div class="class-trainer">Сергей Волков</div>
+                                    <div class="class-time">20:00 - 21:30</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                                    <div class="class-name">Йога для сна</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">20:00 - 21:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #6610f2;">
+                                    <div class="class-name">MMA</div>
+                                    <div class="class-trainer">Сергей Волков</div>
+                                    <div class="class-time">20:00 - 21:30</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                                    <div class="class-name">Йога для сна</div>
+                                    <div class="class-trainer">Мария Петрова</div>
+                                    <div class="class-time">20:00 - 21:00</div>
+                                    <div class="class-action">
+                                        <a href="#" class="btn btn-secondary">Записаться</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Mobile Schedule -->
+            <div class="schedule-mobile">
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Понедельник</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                            <div class="class-name">Утренняя йога</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">07:00 - 08:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                            <div class="class-name">Пилатес</div>
+                            <div class="class-trainer">Елена Соколова</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                            <div class="class-name">CrossFit</div>
+                            <div class="class-trainer">Дмитрий Смирнов</div>
+                            <div class="class-time">18:00 - 19:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                            <div class="class-name">Йога для сна</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">20:00 - 21:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Вторник</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #dc3545;">
+                            <div class="class-name">Бокс</div>
+                            <div class="class-trainer">Сергей Волков</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #17a2b8;">
+                            <div class="class-name">Стретчинг</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">12:00 - 13:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #e83e8c;">
+                            <div class="class-name">Фитнес-бикини</div>
+                            <div class="class-trainer">Анна Кузнецова</div>
+                            <div class="class-time">18:00 - 19:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #6610f2;">
+                            <div class="class-name">MMA</div>
+                            <div class="class-trainer">Сергей Волков</div>
+                            <div class="class-time">20:00 - 21:30</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Остальные дни недели для мобильной версии -->
+                <!-- Среда -->
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Среда</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                            <div class="class-name">Утренняя йога</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">07:00 - 08:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                            <div class="class-name">Пилатес</div>
+                            <div class="class-trainer">Елена Соколова</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                            <div class="class-name">CrossFit</div>
+                            <div class="class-trainer">Дмитрий Смирнов</div>
+                            <div class="class-time">18:00 - 19:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                            <div class="class-name">Йога для сна</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">20:00 - 21:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Четверг -->
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Четверг</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #dc3545;">
+                            <div class="class-name">Бокс</div>
+                            <div class="class-trainer">Сергей Волков</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #17a2b8;">
+                            <div class="class-name">Стретчинг</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">12:00 - 13:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #e83e8c;">
+                            <div class="class-name">Фитнес-бикини</div>
+                            <div class="class-trainer">Анна Кузнецова</div>
+                            <div class="class-time">18:00 - 19:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #6610f2;">
+                            <div class="class-name">MMA</div>
+                            <div class="class-trainer">Сергей Волков</div>
+                            <div class="class-time">20:00 - 21:30</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Пятница -->
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Пятница</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #ff6b00;">
+                            <div class="class-name">Утренняя йога</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">07:00 - 08:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #28a745;">
+                            <div class="class-name">Пилатес</div>
+                            <div class="class-trainer">Елена Соколова</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #fd7e14;">
+                            <div class="class-name">CrossFit</div>
+                            <div class="class-trainer">Дмитрий Смирнов</div>
+                            <div class="class-time">18:00 - 19:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #20c997;">
+                            <div class="class-name">Йога для сна</div>
+                            <div class="class-trainer">Мария Петрова</div>
+                            <div class="class-time">20:00 - 21:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Суббота -->
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Суббота</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #0077ff;">
+                            <div class="class-name">Аквааэробика</div>
+                            <div class="class-trainer">Анна Кузнецова</div>
+                            <div class="class-time">07:00 - 08:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #ffc107;">
+                            <div class="class-name">Детский бассейн</div>
+                            <div class="class-trainer">Анна Кузнецова</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #6f42c1;">
+                            <div class="class-name">Сауна + бассейн</div>
+                            <div class="class-trainer">-</div>
+                            <div class="class-time">12:00 - 14:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Воскресенье -->
+                <div class="mobile-day">
+                    <div class="mobile-day-header">
+                        <span>Воскресенье</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="mobile-day-content">
+                        <div class="schedule-class" style="border-left: 4px solid #ffc107;">
+                            <div class="class-name">Детский бассейн</div>
+                            <div class="class-trainer">Анна Кузнецова</div>
+                            <div class="class-time">09:00 - 10:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                        <div class="schedule-class" style="border-left: 4px solid #6f42c1;">
+                            <div class="class-name">Сауна + бассейн</div>
+                            <div class="class-trainer">-</div>
+                            <div class="class-time">12:00 - 14:00</div>
+                            <div class="class-action">
+                                <a href="#" class="btn btn-secondary">Записаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="schedule-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff6b00;"></div>
+                    <span>Йога</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #28a745;"></div>
+                    <span>Пилатес</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span>Бокс</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0077ff;"></div>
+                    <span>Аквааэробика</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffc107;"></div>
+                    <span>Детские занятия</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #17a2b8;"></div>
+                    <span>Стретчинг</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #6f42c1;"></div>
+                    <span>SPA</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fd7e14;"></div>
+                    <span>CrossFit</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e83e8c;"></div>
+                    <span>Фитнес-бикини</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #20c997;"></div>
+                    <span>Йога для сна</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #6610f2;"></div>
+                    <span>MMA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Training Section -->
+    <section class="personal-training">
+        <div class="container">
+            <div class="section-title">
+                <h2>Персональные тренировки</h2>
+                <p>Запишитесь на индивидуальные занятия с профессиональным тренером в удобное для вас время</p>
+            </div>
+            <a href="trainers.html" class="btn">Выбрать тренера</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>О клубе</h4>
+                    <p>Fitness - это современный фитнес-клуб с профессиональным оборудованием и тренерами международного класса.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Расписание</h4>
+                    <ul>
+                        <li><a href="#">Групповые занятия</a></li>
+                        <li><a href="#">Тренажерный зал</a></li>
+                        <li><a href="#">Бассейн</a></li>
+                        <li><a href="#">Йога и пилатес</a></li>
+                        <li><a href="#">Боевые искусства</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Спортивная, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@fitnessclub.ru</li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Подписка</h4>
+                    <p>Подпишитесь на рассылку, чтобы получать новости о специальных предложениях и акциях клуба.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш email">
+                        </div>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Фитнес-клуб "Fitness". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Schedule navigation tabs
+        const scheduleNavBtns = document.querySelectorAll('.schedule-nav-btn');
+        scheduleNavBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                scheduleNavBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Здесь можно добавить логику загрузки соответствующего расписания
+                // Например, по AJAX или переключение между скрытыми блоками
+            });
+        });
+        
+        // Mobile day accordion
+        const mobileDays = document.querySelectorAll('.mobile-day');
+        mobileDays.forEach(day => {
+            const header = day.querySelector('.mobile-day-header');
+            
+            header.addEventListener('click', function() {
+                mobileDays.forEach(d => {
+                    if (d !== day) {
+                        d.classList.remove('active');
+                    }
+                });
+                
+                day.classList.toggle('active');
+            });
+        });
+        
+        // Filter functionality
+        const directionFilter = document.querySelector('.filter-select');
+        const trainerFilter = document.querySelectorAll('.filter-select')[1];
+        
+        directionFilter.addEventListener('change', filterSchedule);
+        trainerFilter.addEventListener('change', filterSchedule);
+        
+        function filterSchedule() {
+            const direction = directionFilter.value;
+            const trainer = trainerFilter.value;
+            
+            // Здесь можно добавить логику фильтрации расписания
+            // Например, скрывать/показывать соответствующие занятия
+            console.log(`Фильтр: направление - ${direction}, тренер - ${trainer}`);
+        }
+        
+        // Class booking
+        const bookButtons = document.querySelectorAll('.class-action .btn');
+        bookButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const className = this.closest('.schedule-class').querySelector('.class-name').textContent;
+                const classTime = this.closest('.schedule-class').querySelector('.class-time').textContent;
+                
+                alert(`Вы записаны на ${className} (${classTime})\nМы отправили подтверждение на вашу почту.`);
+            });
+        });
+    </script>
+</body>
+</html>
