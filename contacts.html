@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | Fitness - Премиальный фитнес-клуб</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #1a1a1a;
+            --accent: #0077ff;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --success: #28a745;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #e55e00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #000;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #0066cc;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-actions .btn {
+            margin-left: 15px;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Contacts Hero Section */
+        .contacts-hero {
+            height: 50vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-top: 70px;
+        }
+        
+        .contacts-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contacts-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .contacts-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Contact Info Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        .contact-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: #e55e00;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-bottom: 60px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 500px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Contact Form Section */
+        .contact-form-section {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 60px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            text-align: center;
+        }
+        
+        /* Branches Section */
+        .branches-section {
+            margin-bottom: 60px;
+        }
+        
+        .branches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .branch-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .branch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .branch-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .branch-content {
+            padding: 25px;
+        }
+        
+        .branch-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .branch-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+        
+        .branch-meta i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 60px;
+        }
+        
+        .faq-item {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        
+        .faq-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question i {
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .footer-col p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contacts-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .contact-form-section {
+                padding: 30px;
+            }
+            
+            .faq-section {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .contacts-hero {
+                min-height: 400px;
+                margin-top: 60px;
+            }
+            
+            .contacts-hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .map-section {
+                height: 400px;
+            }
+            
+            .faq-question {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-actions .btn {
+                display: none;
+            }
+            
+            .contacts-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .branches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>FIT<span>NESS</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="trainers.html">Тренеры</a></li>
+                    <li><a href="schedule.html">Расписание</a></li>
+                    <li><a href="pricing.html">Цены</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contacts Hero Section -->
+    <section class="contacts-hero">
+        <div class="container contacts-hero-content">
+            <h1>Наши контакты</h1>
+            <p>Мы всегда рады видеть вас в нашем клубе. Приходите на экскурсию и первую бесплатную тренировку!</p>
+            <a href="#contacts" class="btn">Как добраться</a>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info" id="contacts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Свяжитесь с нами</h2>
+                <p>Выберите удобный способ связи или приезжайте к нам в гости</p>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Адрес</h3>
+                    <p>г. Москва, ул. Спортивная, 15</p>
+                    <p>Бизнес центр "Олимп", 3 этаж</p>
+                    <a href="#map" class="contact-link">Посмотреть на карте →</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Часы работы</h3>
+                    <p>Понедельник - Пятница: 6:00 - 23:00</p>
+                    <p>Суббота - Воскресенье: 8:00 - 22:00</p>
+                    <a href="schedule.html" class="contact-link">Посмотреть расписание →</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@fitnessclub.ru</p>
+                    <a href="#form" class="contact-link">Написать сообщение →</a>
+                </div>
+            </div>
+            
+            <div class="map-section" id="map">
+                <div class="map-container">
+                    <!-- Здесь будет карта -->
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b&amp;source=constructor" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            
+            <div class="contact-form-section" id="form">
+                <div class="section-title">
+                    <h2>Остались вопросы?</h2>
+                    <p>Заполните форму и мы свяжемся с вами в ближайшее время</p>
+                </div>
+                
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Тема обращения</label>
+                        <select id="subject">
+                            <option value="question">Общий вопрос</option>
+                            <option value="membership">Абонемент</option>
+                            <option value="training">Персональные тренировки</option>
+                            <option value="feedback">Отзыв и предложения</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="branches-section">
+                <div class="section-title">
+                    <h2>Наши филиалы</h2>
+                    <p>Посетите любой из наших клубов в Москве</p>
+                </div>
+                
+                <div class="branches-grid">
+                    <div class="branch-card">
+                        <div class="branch-img" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="branch-content">
+                            <h3>Центральный филиал</h3>
+                            <div class="branch-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>ул. Спортивная, 15</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>+7 (495) 123-45-67</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-clock"></i>
+                                <span>Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</span>
+                            </div>
+                            <a href="#map" class="btn btn-secondary" style="margin-top: 15px; display: inline-block;">Как добраться</a>
+                        </div>
+                    </div>
+                    
+                    <div class="branch-card">
+                        <div class="branch-img" style="background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="branch-content">
+                            <h3>Северный филиал</h3>
+                            <div class="branch-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>пр. Северный, 42</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>+7 (495) 765-43-21</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-clock"></i>
+                                <span>Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</span>
+                            </div>
+                            <a href="#map" class="btn btn-secondary" style="margin-top: 15px; display: inline-block;">Как добраться</a>
+                        </div>
+                    </div>
+                    
+                    <div class="branch-card">
+                        <div class="branch-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="branch-content">
+                            <h3>Южный филиал</h3>
+                            <div class="branch-meta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>ул. Южная, 8к1</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>+7 (495) 987-65-43</span>
+                            </div>
+                            <div class="branch-meta">
+                                <i class="fas fa-clock"></i>
+                                <span>Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</span>
+                            </div>
+                            <a href="#map" class="btn btn-secondary" style="margin-top: 15px; display: inline-block;">Как добраться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <div class="section-title">
+                    <h2>Частые вопросы</h2>
+                    <p>Ответы на самые популярные вопросы о нашем клубе</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Как записаться на первую тренировку?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Вы можете записаться на первую бесплатную тренировку по телефону +7 (495) 123-45-67 или через форму на нашем сайте. Также вы можете просто прийти в клуб, и мы с радостью проведем для вас экскурсию и поможем выбрать подходящее занятие.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Что взять с собой на первую тренировку?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Для первого посещения вам понадобится спортивная одежда и обувь, полотенце и бутылка воды. Мы предоставляем все необходимое оборудование. Если вы планируете посещать бассейн, возьмите купальник/плавки, шапочку и сланцы.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Есть ли парковка у клуба?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, у всех наших филиалов есть бесплатная парковка для клиентов. В центральном филиале работает подземный паркинг на 50 мест. В часы пик (18:00-21:00) рекомендуем приходить немного заранее или пользоваться общественным транспортом.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Можно ли посещать клуб с ребенком?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, в нашем клубе есть детская комната с профессиональными воспитателями (платно), а также специальные детские занятия в бассейне и спортивном зале. Дети от 14 лет могут посещать тренажерный зал под присмотром тренера.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>О клубе</h4>
+                    <p>Fitness - это современный фитнес-клуб с профессиональным оборудованием и тренерами международного класса.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Расписание</h4>
+                    <ul>
+                        <li><a href="#">Групповые занятия</a></li>
+                        <li><a href="#">Тренажерный зал</a></li>
+                        <li><a href="#">Бассейн</a></li>
+                        <li><a href="#">Йога и пилатес</a></li>
+                        <li><a href="#">Боевые искусства</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Спортивная, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@fitnessclub.ru</li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 6:00-23:00, Сб-Вс: 8:00-22:00</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Подписка</h4>
+                    <p>Подпишитесь на рассылку, чтобы получать новости о специальных предложениях и акциях клуба.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш email">
+                        </div>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Фитнес-клуб "Fitness". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                faqItems.forEach(i => {
+                    if (i !== item) {
+                        i.classList.remove('active');
+                    }
+                });
+                
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Здесь можно добавить валидацию и отправку формы
+            const name = document.getElementById('name').value;
+            alert(`Спасибо, ${name}! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.`);
+            
+            // Очистка формы
+            contactForm.reset();
+        });
+        
+        // Initialize map (пример для Яндекс.Карт)
+        function initMap() {
+            // Код инициализации карты
+            // В реальном проекте нужно подключить API карт
+            console.log('Map would be initialized here');
+        }
+        
+        // Инициализация карты после загрузки страницы
+        window.addEventListener('load', initMap);
+    </script>
+</body>
+</html>
